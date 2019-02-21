@@ -46,7 +46,7 @@ def search(movie_name):
     movie_name_format = "+".join(movie_name_list)
     searched_movies = search_movie(movie_name_format)
     title = f'search results for {movie_name}'
-    return render_template('search.html',movies = searched_movies)
+    return render_template('search.html',movies = searched_movies,title=title)
 @main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 def new_review(id):
     form = ReviewForm()
@@ -57,7 +57,7 @@ def new_review(id):
         review = form.review.data
         new_review = Review(movie.id,title,movie.poster,review)
         new_review.save_review()
-        return redirect(url_for('movie',id = movie.id ))
+        return redirect(url_for('main.movie',movie_id = movie.id ))
 
     title = f'{movie.title} review'
     return render_template('new_review.html',title = title, review_form=form, movie=movie)
