@@ -1,12 +1,18 @@
-from app import app
-from .models import movie
+import urllib.request,json
+from .models import Movie
+
 import urllib.request,json
 # Getting api key
-api_key = app.config['MOVIE_API_KEY']
+api_key = None
 # Getting the movie base url
-base_url = app.config["MOVIE_API_BASE_URL"]
+base_url = None
 
-Movie = movie.Movie
+def configure_request(app):
+    global api_key,base_url
+    api_key = app.config['MOVIE_API_KEY']
+    base_url = app.config['MOVIE_API_BASE_URL']
+
+
 def process_results(movie_list):
     '''
     Function  that processes the movie result and transform them to a list of Objects
